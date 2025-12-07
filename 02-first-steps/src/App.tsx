@@ -1,7 +1,19 @@
+import { FirstSteps,ItemCounter } from "./components";
+import { initialItemsInCart } from "./data";
+import type { ItemInCart } from "./interfaces";
+
+
 function App() {
+    const items:ItemInCart[] = initialItemsInCart;
     return (
         <>
-            <h1>Hola Mundo</h1>
+            <FirstSteps />
+            {/* <MyAwesome/> */}
+            {
+                items.map(item=>(
+                    <ItemCounter key={item.name} title={item.name} quantity={item.quantity} />
+                ))
+            }
         </>
     );
 }

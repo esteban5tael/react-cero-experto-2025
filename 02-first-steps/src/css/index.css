@@ -2,5 +2,16 @@
 
 html,
 body {
-    @apply bg-gray-800 text-white;
+    @apply bg-gray-800 text-white m-1 p-1;
+}
+
+.button {
+    @apply bg-blue-500 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-800 text-white py-1 px-1 rounded cursor-pointer transition-all mb-1;
+}
+.button-warning {
+    @apply bg-yellow-500 hover:bg-yellow-700 dark:bg-yellow-600 dark:hover:bg-yellow-800 text-white py-1 px-1 rounded cursor-pointer transition-all mb-1;
+}
+
+.button-danger {
+    @apply bg-red-500 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-800 text-white py-1 px-1 rounded cursor-pointer transition-all mb-1;
 }
