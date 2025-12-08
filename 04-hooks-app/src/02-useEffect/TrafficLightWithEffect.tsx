@@ -16,26 +16,40 @@ export const TrafficLightWithEffect = ({ title }: Props) => {
     const [light, setLight] = useState<TrafficLightColor>("red");
     const [countDown, setCountDown] = useState(3);
 
-   /*  const handleColorChange=()=>{
-        if(light ==="red") return setLight("green"); 
-        if(light ==="green") return setLight("yellow");
-        if(light ==="yellow") return setLight("red");
-    } */
-
+    /* Coundown Effect */
     useEffect(() => {
-        if (countDown > -1) {
-            const timer = setTimeout(() => {
-                setCountDown((prev) => prev - 1);
-            }, 1100);
-            return () => clearTimeout(timer);
-        }
-        
+        if (countDown === 0) return;
+
+        const intervalId = setInterval(() => {
+            setCountDown((prev) => prev - 1);
+        }, 1000);
+
+        return () => clearInterval(intervalId);
     }, [countDown]);
 
+    /* Change color effect */
+    useEffect(() => {
+        if (countDown === 0) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setCountDown(3);
+            if (light === "red") {
+                setLight("green");
+                return;
+            }
 
+            if (light === "yellow") {
+                setLight("red");
+                return;
+            }
 
+            if (light === "green") {
+                setLight("yellow");
+                return;
+            }
 
-
+            return;
+        }
+    }, [countDown, light]);
 
     return (
         <>
@@ -48,11 +62,20 @@ export const TrafficLightWithEffect = ({ title }: Props) => {
                         Countdown: {countDown}{" "}
                     </h2>
 
+                    <div className="w-64 bg-gray-700 rounded-full h-2">
+                        <div
+                            className="bg-blue-500 h-2 rounded-full transition-all duration-500 ease-linear"
+                            style={{
+                                width: `${(countDown / 3) * 100}%`,
+                            }}
+                        ></div>
+                    </div>
+
                     <div
                         className={`w-32 h-32 ${
-                            light === "red"
+                            light === "green"
                                 ? colors[light]
-                                : "bg-gray-500 "
+                                : "bg-gray-500"
                         } rounded-full`}
                     ></div>
 
@@ -63,12 +86,11 @@ export const TrafficLightWithEffect = ({ title }: Props) => {
                                 : "bg-gray-500"
                         } rounded-full`}
                     ></div>
-
                     <div
                         className={`w-32 h-32 ${
-                            light === "green"
+                            light === "red"
                                 ? colors[light]
-                                : "bg-gray-500"
+                                : "bg-gray-500 "
                         } rounded-full`}
                     ></div>
                 </div>
