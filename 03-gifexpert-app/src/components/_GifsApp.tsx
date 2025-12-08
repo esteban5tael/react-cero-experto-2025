@@ -1,5 +1,7 @@
-import { CustomHeader, PreviousSearches, SearchBar } from "./";
-import { GifList } from "./GifList";
+import { CustomHeader, PreviousSearches, SearchBar,GifList  } from "./";
+
+
+import { mockGifs,previousSearchesMock } from "../data";
 
 export const GifsApp = () => {
     return (
@@ -14,10 +16,10 @@ export const GifsApp = () => {
             <SearchBar placeholder="Buscar Gifs" />
 
             {/* Previous Searches */}
-            <PreviousSearches />
+            <PreviousSearches searches={previousSearchesMock.searches}/>
 
             {/* GifList */}
-            <GifList />
+            <GifList gifs={mockGifs} />
         </>
     );
 };
