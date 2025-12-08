@@ -1,7 +1,7 @@
-import type { Gif } from "../interfaces";
+import type { GifInterface } from "../interfaces";
 
 interface Props{
-    gifs:Gif[];
+    gifs:GifInterface[];
 }
 
 export const GifList = ({gifs}:Props) => {
