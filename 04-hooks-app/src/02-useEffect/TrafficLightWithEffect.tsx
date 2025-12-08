@@ -1,6 +1,6 @@
-import { useState } from "react";
-interface Props{
-    title:string
+import { useEffect, useState } from "react";
+interface Props {
+    title: string;
 }
 const colors = {
     red: "bg-red-500 animate-pulse",
@@ -12,29 +12,42 @@ const colors = {
 // type TrafficLightColor = "red" | "yellow" | "green" | "";
 type TrafficLightColor = keyof typeof colors | "";
 
-export const TrafficLightWithEffect = ({title}:Props) => {
-    const [loading, setLoading] = useState(false);
-    const [light, setLight] = useState<TrafficLightColor>("");
+export const TrafficLightWithEffect = ({ title }: Props) => {
+    const [light, setLight] = useState<TrafficLightColor>("red");
+    const [countDown, setCountDown] = useState(3);
 
-    const handleColorChange = (color: TrafficLightColor) => {
-        setLoading(true);
+   /*  const handleColorChange=()=>{
+        if(light ==="red") return setLight("green"); 
+        if(light ==="green") return setLight("yellow");
+        if(light ==="yellow") return setLight("red");
+    } */
 
-        // Simular una operación asincrónica
-        setTimeout(() => {
-            setLoading(false);
-        }, 1000);
+    useEffect(() => {
+        if (countDown > -1) {
+            const timer = setTimeout(() => {
+                setCountDown((prev) => prev - 1);
+            }, 1100);
+            return () => clearTimeout(timer);
+        }
+        
+    }, [countDown]);
 
-        setLight((prev) => {
-            if (prev === color) return "";
-            return color;
-        });
-    };
+
+
+
+
 
     return (
         <>
-        <h1 className=" text-center">{title}</h1>
             <div className="min-h-screen bg-linear-to-br from-slate-900 via-gray-900 to-slate-800 flex items-center justify-center p-4">
                 <div className="flex flex-col items-center space-y-8">
+                    <h1 className=" text-center font-thin">
+                        {title}
+                    </h1>
+                    <h2 className="text-xl">
+                        Countdown: {countDown}{" "}
+                    </h2>
+
                     <div
                         className={`w-32 h-32 ${
                             light === "red"
@@ -58,42 +71,6 @@ export const TrafficLightWithEffect = ({title}:Props) => {
                                 : "bg-gray-500"
                         } rounded-full`}
                     ></div>
-
-                    {/* Botón para cambiar el estado de la luz */}
-                    <div className="flex gap-2">
-                        <button
-                            className={`bg-red-500 text-white px-4 py-2 rounded-md cursor-pointer ${
-                                loading && light === "red"
-                                    ? "animate-spin"
-                                    : ""
-                            }`}
-                            onClick={() => handleColorChange("red")}
-                        >
-                            Rojo
-                        </button>
-                        <button
-                            className={`bg-yellow-500 text-white px-4 py-2 rounded-md cursor-pointer ${
-                                loading && light === "yellow"
-                                    ? "animate-spin"
-                                    : ""
-                            }`}
-                            onClick={() =>
-                                handleColorChange("yellow")
-                            }
-                        >
-                            Amarillo
-                        </button>
-                        <button
-                            className={`bg-green-500 text-white px-4 py-2 rounded-md cursor-pointer ${
-                                loading && light === "green"
-                                    ? "animate-spin"
-                                    : ""
-                            }`}
-                            onClick={() => handleColorChange("green")}
-                        >
-                            Verde
-                        </button>
-                    </div>
                 </div>
             </div>
         </>
