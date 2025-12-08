@@ -99,12 +99,12 @@ export interface Looping {
     mp4?:      string;
 }
 
-export enum Rating {
-    G = "g",
+export interface Rating {
+    [key: string]: string;
 }
 
-export enum Type {
-    GIF = "gif",
+export interface Type {
+    [key: string]: string;
 }
 
 export interface User {
@@ -120,10 +120,8 @@ export interface User {
     is_verified:   boolean;
 }
 
-export enum Username {
-    Dani = "dani",
-    Empty = "",
-    Nazoom1 = "Nazoom1",
+export interface Username {
+    [key: string]: string;
 }
 
 export interface Meta {
