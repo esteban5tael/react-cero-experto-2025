@@ -1,7 +1,7 @@
-import type { Gif } from "../interfaces";
+import type { GifInterface } from "../interfaces";
 
 
-export const mockGifs: Gif[] = [
+export const mockGifs: GifInterface[] = [
   {
     id: '1',
     title: "Superman's Cake",
