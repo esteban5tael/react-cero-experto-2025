@@ -6,7 +6,7 @@ body {
     
 } */
 .bg-gradient {
-  @apply bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 min-h-screen flex items-center justify-center p-4 text-white;
+  @apply bg-grad<ient-to-br from-slate-900 via-gray-900 to-slate-800 min-h-screen flex items-center justify-center p-4 text-white;
 }
 .button {
     @apply bg-blue-500 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-800 text-white py-1 px-1 rounded cursor-pointer transition-all mb-1;

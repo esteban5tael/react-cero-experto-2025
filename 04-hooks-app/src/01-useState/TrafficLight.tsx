@@ -68,7 +68,9 @@ export const TrafficLight = ({ title }: Props) => {
                                     ? "animate-spin"
                                     : ""
                             }`}
-                            onClick={() => handleColorChange("red")}
+                            handleClck={() =>
+                                handleColorChange("red")
+                            }
                         >
                             Rojo
                         </button>
@@ -78,7 +80,7 @@ export const TrafficLight = ({ title }: Props) => {
                                     ? "animate-spin"
                                     : ""
                             }`}
-                            onClick={() =>
+                            handleClck={() =>
                                 handleColorChange("yellow")
                             }
                         >
@@ -90,7 +92,9 @@ export const TrafficLight = ({ title }: Props) => {
                                     ? "animate-spin"
                                     : ""
                             }`}
-                            onClick={() => handleColorChange("green")}
+                            handleClck={() =>
+                                handleColorChange("green")
+                            }
                         >
                             Verde
                         </button>

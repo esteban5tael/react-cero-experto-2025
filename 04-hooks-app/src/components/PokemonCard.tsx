@@ -1,16 +1,15 @@
 import { useCounter, usePokemon } from "@/hooks";
 
-
 export const PokemonCard = () => {
     const {
         //Props
         counter,
-        
+
         //Mehtods
         increment,
         decrement,
     } = useCounter(9);
-    const { pokemon } = usePokemon    ({ id: counter });
+    const { pokemon } = usePokemon({ id: counter });
     return (
         <>
             <div className="bg-gradient flex flex-col items-center">
@@ -28,14 +27,14 @@ export const PokemonCard = () => {
                 <div className="flex gap-2">
                     <button
                         className="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer"
-                        onClick={decrement}
+                        handleClck={decrement}
                     >
                         Anterior
                     </button>
 
                     <button
                         className="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer"
-                        onClick={increment}
+                        handleClck={increment}
                     >
                         Siguiente
                     </button>
