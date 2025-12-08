@@ -1,1 +1,3 @@
-quiero que analices los #changes y siguiendo las #file:commits-instructions.md me hagas el commit
+quiero que analices los #changes y siguiendo las #file:commits-instructions.md me hagas el commit, 
+
+de igual manera quiero que hagas un push a la rama actual
