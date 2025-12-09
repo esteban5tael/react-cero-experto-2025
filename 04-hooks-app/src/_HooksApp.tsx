@@ -5,7 +5,8 @@ import {
     TrafficLightWithEffect,
 } from "./02-useEffect";
 import { PokemonPage } from "./03-examples";
-import { TaskApp } from "./05-useReducer/TaskApp";
+import { TasksApp } from "./05-useReducer/TaskApp";
+
 
 const mustShow: boolean = false;
 export const HooksApp = () => {
@@ -21,7 +22,7 @@ export const HooksApp = () => {
                         <FocusScreen />
                     </>
                 )}
-                <TaskApp />
+                <TasksApp />
             </div>
         </>
     );

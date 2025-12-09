@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import { Plus, Trash2, Check } from "lucide-react";
 
@@ -11,31 +11,48 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import type { Todo } from "./interfaces";
 
-interface Todo {
-    id: number;
-    text: string;
-    completed: boolean;
-}
-
-export const TasksApp = () => {
+export const TaskApp = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
+
     const [inputValue, setInputValue] = useState("");
 
+    const todoInputRef = useRef<HTMLInputElement>(null);
+
     const addTodo = () => {
-        console.log("Agregar tarea", inputValue);
+        if (inputValue.trim() === "") return;
+
+        const newTodo: Todo = {
+            id: Date.now(),
+            text: inputValue.trim(),
+            completed: false,
+        };
+
+        setTodos([newTodo, ...todos]);
+        setInputValue("");
+        todoInputRef.current?.focus();
     };
 
     const toggleTodo = (id: number) => {
-        console.log("Cambiar de true a false", id);
+        const updatedTodos = todos.map((todo) => {
+            if (todo.id === id) {
+                return { ...todo, completed: !todo.completed };
+            }
+            return todo;
+        });
+        setTodos(updatedTodos);
     };
 
     const deleteTodo = (id: number) => {
-        console.log("Eliminar tarea", id);
+        const updatedTodos = todos.filter((todo) => todo.id !== id);
+        setTodos(updatedTodos);
     };
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
-        console.log("Presiono enter");
+        if (e.key === "Enter") {
+            addTodo();
+        }
     };
 
     const completedCount = todos.filter(
@@ -56,10 +73,11 @@ export const TasksApp = () => {
                     </p>
                 </div>
 
-                <Card className="mb-6 shadow-lg border-0 bg-slate-800/80 backdrop-blur-sm">
+                <Card className="mb-6 shadow-lg border-0 bg-slate-800/80 backdrop-blur-sm text-white">
                     <CardContent className="p-6">
                         <div className="flex gap-2">
                             <Input
+                                ref={todoInputRef}
                                 placeholder="Añade una nueva tarea..."
                                 value={inputValue}
                                 onChange={(e) =>
