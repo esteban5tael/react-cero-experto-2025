@@ -61,7 +61,7 @@ export const TaskApp = () => {
     const totalCount = todos.length;
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-900 p-4">
+        <div className="min-h-screen bg-linear-to-br from-slate-800 to-slate-900 p-4">
             <div className="mx-auto max-w-2xl">
                 <div className="mb-8 text-center">
                     <h1 className="text-4xl font-bold text-white mb-2">
@@ -120,7 +120,7 @@ export const TaskApp = () => {
                             </div>
                             <div className="w-full bg-slate-600 rounded-full h-2">
                                 <div
-                                    className="bg-gradient-to-r from-green-400 to-green-500 h-2 rounded-full transition-all duration-300 ease-out"
+                                    className="bg-linear-to-r from-green-400 to-green-500 h-2 rounded-full transition-all duration-300 ease-out"
                                     style={{
                                         width: `${
                                             (completedCount /
