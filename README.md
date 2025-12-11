@@ -1,1 +1,1 @@
-08 - Manejo de estado - busquedas previas
+010 Controlar estados complejos - useReducer
