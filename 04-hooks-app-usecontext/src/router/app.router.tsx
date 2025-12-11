@@ -1,22 +1,28 @@
 import { createBrowserRouter } from "react-router";
-import { AboutPage, LoginPage, ProfilePage,NotFoundPage } from "./../pages";
+import { MainLayout } from "../Layouts";
+import { AboutPage, LoginPage, ProfilePage, NotFoundPage } from "../pages";
 
 export const appRouter = createBrowserRouter([
-
     {
         path: "/",
-        element: <AboutPage />,
-    },
-    {
-        path: "/profile",
-        element: <ProfilePage />,
-    },
-    {
-        path: "/login",
-        element: <LoginPage />,
-    },
-    {
-        path: "*",
-        element: <NotFoundPage />,
+        element: <MainLayout />,  // Layout padre
+        children: [
+            {
+                path: "/",  // Página principal
+                element: <AboutPage />,
+            },
+            {
+                path: "/profile",
+                element: <ProfilePage />,
+            },
+            {
+                path: "/login",
+                element: <LoginPage />,
+            },
+            {
+                path: "*",  // Página 404
+                element: <NotFoundPage />,
+            },
+        ],
     },
 ]);
