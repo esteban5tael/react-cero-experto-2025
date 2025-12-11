@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+html,
+body {
+    @apply   bg-slate-800 text-white p-0.5 m-0.5;
+    
+}
