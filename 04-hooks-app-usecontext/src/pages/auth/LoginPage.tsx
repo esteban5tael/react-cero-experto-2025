@@ -1,15 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import {
     Card,
     CardContent,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { useContext, useState } from "react";
+import { useContext, useState,useEffect } from "react";
 import { UserContext } from "@/contexts";
+import { toast } from "sonner";
 
 interface LoginInfo {
     email: string;
@@ -17,27 +18,37 @@ interface LoginInfo {
 }
 
 export const LoginPage = () => {
+
+    
     const [loginInfo, setLoginInfo] = useState<LoginInfo>({
-        email: "",
-        password: "",
+        email: "ana.garcia@email.com",
+        password: "12345678",
     });
 
-    const { login, user } = useContext(UserContext);
+    const { user,login } = useContext(UserContext);
+
+    const navigate = useNavigate();
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
 
-        const result = login(loginInfo.email);
-        if (!result) {
-            alert("Login failed. Please check your credentials.");
-            return false;
-        }
+        const success = login(loginInfo.email);
 
-        console.log({
-            'result':result,
-            "user":user
-        });
+        if (!success) {
+            toast.error("Invalid email or password");
+            return;
+        }
+        toast.success("Login successful");
+
+        navigate("/profile");
     };
+
+    useEffect(() => {
+      if (user) {
+        navigate("/profile");
+      }
+    }, [user, navigate])
+    
 
     return (
         <>

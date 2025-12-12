@@ -1,10 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { users } from "@/data";
 import type { UserInterface } from "@/interfaces";
 import {
     createContext,
+    useEffect,
     useState,
     type PropsWithChildren,
 } from "react";
+import { toast } from "sonner";
 
 type AuthStatus = "authenticated" | "not-authenticated" | "checking";
 
@@ -14,7 +17,7 @@ interface UserContextProps {
     user: UserInterface | null;
 
     // methods
-    login: (email: string) =>boolean;
+    login: (email: string) => boolean;
     register: (
         name: string,
         email: string,
@@ -34,25 +37,28 @@ export const UserContextProvider = ({
 
     const [user, setUser] = useState<UserInterface | null>(null);
 
-    const clearUserData=()=>{
+    const clearUserData = () => {
+        localStorage.removeItem("userEmail");
         setAuthStatus("not-authenticated");
         setUser(null);
-
-    }
+    };
 
     const handleLogin = (email: string) => {
-        const user:UserInterface=users.find(user=>user.contact.email===email)!;
+        const user: UserInterface = users.find(
+            (user) => user.contact.email === email
+        )!;
 
-        if(!user) {
+        if (!user) {
             clearUserData();
             console.log("Login failed for email: ", email);
             return false;
-        };
+        }
 
         setUser(user);
         setAuthStatus("authenticated");
+        localStorage.setItem("userEmail", email);
         console.log("User Logged in: ", user);
-        return true
+        return true;
     };
 
     const handleRegister = (
@@ -65,8 +71,15 @@ export const UserContextProvider = ({
 
     const handleLogout = () => {
         clearUserData();
-        console.log("User Logged out");
+        toast.info("User logged out");
     };
+
+    useEffect(() => {
+        const storedUserEmail = localStorage.getItem("userEmail");
+        if (storedUserEmail) {
+            handleLogin(storedUserEmail);
+        }
+    }, []);
 
     return (
         <UserContext

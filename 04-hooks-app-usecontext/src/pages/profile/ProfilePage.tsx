@@ -1,12 +1,13 @@
-import { Button } from "@/components/ui";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 
-export const ProfilePage = () => {
+import { UserCard } from "./components";
+import { UserContext } from "@/contexts";
+import { useContext } from "react";
+import { Button } from "@/components/ui";
+import { Link } from "react-router";
 
-    const handleLogout = () => {
-        // Logic for logging out the user
-        console.log("User logged out");
-    }
+export const ProfilePage = () => {
+    const { user } = useContext(UserContext);
 
     return (
         <div className="p-8">
@@ -17,15 +18,25 @@ export const ProfilePage = () => {
                     </CardTitle>
                 </CardHeader>
             </Card>
-            <div className="my-5 flex justify-center gap-4">
-                <Button
-                    className="bg-secondary text-secondary-foreground hover:bg-gray-900"
-                    variant="outline"
-                    onClick={handleLogout}
-                >
-                    Secondary Outline
-                </Button>
-            </div>
+
+            {user ? (
+                <UserCard />
+            ) : (
+                <>
+                    <hr className="my-10" />
+                    <Link
+                        to="/login"
+                        className="text-sm text-blue-500 hover:underline"
+                    >
+                        <Button
+                            className="w-full mt-2"
+                            variant={"ghost"}
+                        >
+                            Go to Login
+                        </Button>
+                    </Link>
+                </>
+            )}
         </div>
     );
 };
