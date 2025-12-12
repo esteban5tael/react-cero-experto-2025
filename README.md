@@ -1,1 +1,1 @@
-010 Controlar estados complejos - useReducer
+009 Pensemos en componentes reutilizables

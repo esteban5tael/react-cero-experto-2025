@@ -1,14 +1,10 @@
-import { Button } from "./components";
+import { RouterProvider } from "react-router";
+//
+import { appRoutes } from "./router";
+//
 
 export const App = () => {
-    return (
-        <>
-            <h1>Heroes App</h1>
-            <Button
-            variant="default"
-            >Click</Button>
-        </>
-    );
+    return <RouterProvider router={appRoutes} />;
 };
 
 export default App;
