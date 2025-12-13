@@ -1,13 +1,11 @@
-
-
 import {
-    
     Tabs,
     TabsList,
     TabsTrigger,
     CustomJumbotron,
     TabsContent,
     CustomPagination,
+    CustomBreadcrumbs,
 } from "@/components/";
 import { HeroGrid, HeroStats } from "@/heroes/components";
 import { useState } from "react";
@@ -22,6 +20,9 @@ export function HomePage() {
                 title="Welcome to the Superheroes Database"
                 description="Discover and manage your favorite superheroes and villains all in one place."
             />
+
+            {/* Breadcrumbs */}
+            <CustomBreadcrumbs currentPage="Super Heroes" />
 
             {/* Stats Dashboard */}
             <HeroStats />
@@ -75,9 +76,7 @@ export function HomePage() {
             </Tabs>
 
             {/* Pagination */}
-            <CustomPagination 
-            totalPages={8}
-            />
+            <CustomPagination totalPages={8} />
         </>
     );
 }

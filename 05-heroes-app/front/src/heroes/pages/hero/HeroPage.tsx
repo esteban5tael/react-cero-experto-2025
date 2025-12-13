@@ -1,3 +1,4 @@
+import { CustomBreadcrumbs } from "@/components"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
@@ -56,6 +57,15 @@ export  function HeroPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+         {/* Breadcrumbs */}
+                  <CustomBreadcrumbs
+                      currentPage="Search"
+                      /* breadcrumbs={[
+                          {label:'Home',to:"/"},
+                          {label:'Home',to:"/"},
+                          {label:'Home',to:"/"},
+                      ]} */
+                  />
       {/* Header Banner */}
       <div className="bg-linear-to-r from-slate-900 via-blue-900 to-slate-900 text-white">
         <div className="max-w-7xl mx-auto px-6 py-12">

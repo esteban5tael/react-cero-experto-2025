@@ -1,9 +1,10 @@
 export * from './ui/badge';
+export * from './ui/breadcrumb';
 export * from './ui/button-group';
 export * from './ui/button';
 export * from './ui/card';
+export * from './ui/custom/CustomBreadcrumbs';
 export * from './ui/custom/CustomJumbotron';
-
 export * from './ui/custom/CustomPagination';
 export * from './ui/dialog';
 export * from './ui/input-group';
