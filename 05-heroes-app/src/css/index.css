@@ -1,9 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-html,body {
+/* html,body {
   @apply scroll-smooth p-0.5 m-0 bg-gray-800 text-white;
-}
+} */
 
 @custom-variant dark (&:is(.dark *));
 
