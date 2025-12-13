@@ -1,1 +1,1 @@
-009 Pensemos en componentes reutilizables
+005 TanStack Query - Gestor de estado asíncrono

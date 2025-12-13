@@ -7,12 +7,23 @@ import {
     CustomPagination,
     CustomBreadcrumbs,
 } from "@/components/";
+import { getHeroesByPage } from "@/heroes/actions/get-heroes-by-page.action";
 import { HeroGrid, HeroStats } from "@/heroes/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 export function HomePage() {
     const [activeTab, setActiveTab] = useState<
         "all" | "favorites" | "heroes" | "villains"
     >("villains");
+
+
+    useEffect(() => {
+      getHeroesByPage().then( data => {
+        console.log({data});
+      });
+    }, [])
+    
+
+
     return (
         <>
             {/* Header */}
