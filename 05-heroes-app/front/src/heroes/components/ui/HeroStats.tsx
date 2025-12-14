@@ -5,7 +5,7 @@ import { HeroStatCard } from "./HeroStatCard";
 import { useHeroesStats } from "@/heroes/hooks/useHeroesStats";
 
 export const HeroStats = () => {
-    const { isError, isLoading, heroesStats } = useHeroesStats();
+    const { isError, isLoading, data:heroesStats } = useHeroesStats();
 
     if (isLoading) {
         return (

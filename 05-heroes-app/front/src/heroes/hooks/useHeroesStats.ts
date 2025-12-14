@@ -1,20 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { getHeroesSummary } from "../actions";
+import { getHeroesSummaryAction } from "../actions";
 
 export const useHeroesStats = () => {
-    const {
-        isError,
-        isLoading,
-        data: heroesStats,
-    } = useQuery({
+   
+
+    return useQuery({
         queryKey: ["heroesStats"],
-        queryFn: () => getHeroesSummary(),
+        queryFn: () => getHeroesSummaryAction(),
         staleTime: 1000 * 60 * 5, // 5 minutes
     });
-
-    return {
-        isError,
-        isLoading,
-        heroesStats,
-    };
 };

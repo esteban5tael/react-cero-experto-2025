@@ -9,18 +9,17 @@ import {
     CustomBreadcrumbs,
     Spinner,
 } from "@/components/";
-import { getHeroesByPageAction } from "@/heroes/actions/";
 import { HeroGrid, HeroStats } from "@/heroes/components";
-import { useQuery } from "@tanstack/react-query";
 import { useMemo, useEffect } from "react";
-import { useHeroesStats } from "@/heroes/hooks";
+import { useHeroesStats, usePaginatedHeroes } from "@/heroes/hooks";
 
 export function HomePage() {
     const [searchParams, setSearchParams] = useSearchParams();
-    const { heroesStats } = useHeroesStats();
+    const { data: heroesStats } = useHeroesStats();
     const activeTab = searchParams.get("tab") ?? "all";
     const page = Number(searchParams.get("page") ?? "1");
     const limit = Number(searchParams.get("limit") ?? 6);
+    const category = searchParams.get("category") ?? "hero";
 
     const selectedTab = useMemo(() => {
         const validTabs = ["all", "favorites", "heroes", "villains"];
@@ -31,12 +30,7 @@ export function HomePage() {
         isError,
         isLoading,
         data: heroesResponse,
-    } = useQuery({
-        queryKey: ["heroes", { page, limit }],
-        // queryKey: ["heroes", { page: page }, { limit: limit }],
-        queryFn: () => getHeroesByPageAction(page, limit),
-        staleTime: 1000 * 60 * 5, // 5 minutes
-    });
+    } = usePaginatedHeroes(page, limit, category);
 
     useEffect(() => {
         if (heroesResponse && page > heroesResponse.pages) {
@@ -81,6 +75,8 @@ export function HomePage() {
                             onClick={() =>
                                 setSearchParams((prev) => {
                                     prev.set("tab", "all");
+                                    prev.set("category", "all");
+                                    prev.set("page","1");
                                     return prev;
                                 })
                             }
@@ -105,6 +101,8 @@ export function HomePage() {
                             onClick={() =>
                                 setSearchParams((prev) => {
                                     prev.set("tab", "heroes");
+                                    prev.set("category", "hero");
+                                    prev.set("page","1");
                                     return prev;
                                 })
                             }
@@ -116,6 +114,8 @@ export function HomePage() {
                             onClick={() =>
                                 setSearchParams((prev) => {
                                     prev.set("tab", "villains");
+                                    prev.set("category", "villain");
+                                    prev.set("page","1");
                                     return prev;
                                 })
                             }
@@ -136,11 +136,15 @@ export function HomePage() {
                     </TabsContent>
                     <TabsContent value="heroes">
                         <h1> All Heroes</h1>
-                        {/* <HeroGrid /> */}
+                        <HeroGrid
+                            heroes={heroesResponse.heroes ?? []}
+                        />
                     </TabsContent>
                     <TabsContent value="villains">
                         <h1> All Villains</h1>
-                        {/* <HeroGrid /> */}
+                        <HeroGrid
+                            heroes={heroesResponse.heroes ?? []}
+                        />
                     </TabsContent>
                 </Tabs>
 

@@ -6,7 +6,8 @@ const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const getHeroesByPageAction = async (
     page: number,
-    limit: number = 6
+    limit: number = 6,
+    category: string = "all"
 ): Promise<HeroesResponseInterface> => {
     // await new Promise((resolve) => setTimeout(resolve, 2000)); // Simular delay de 2 segundos
 
@@ -18,6 +19,7 @@ export const getHeroesByPageAction = async (
         params: {
             limit: limit,
             offset: (page - 1) * limit,
+            category: category,
         },
     });
 
@@ -25,7 +27,7 @@ export const getHeroesByPageAction = async (
         ...hero,
         image: `${BASE_URL}/images/${hero.image}`,
     }));
-    
+
     const finalData = { ...data, heroes };
 
     return finalData;
