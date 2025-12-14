@@ -1,6 +1,6 @@
 import { lazy } from "react";
 //
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 //
 
 
@@ -26,15 +26,17 @@ export const appRoutes = createBrowserRouter([
                 element: <HomePage />,
             },
             {
-                path: "hero/:id",
+                path: "hero/:idSlug",
                 element: <HeroPage />,
             },
             {
                 path: "search",
                  element: <SearchPage />,
-                
-                
             },
+            {
+                path:"*",
+                element:<Navigate to={"/"}/>
+            }
         ],
     },
     {
