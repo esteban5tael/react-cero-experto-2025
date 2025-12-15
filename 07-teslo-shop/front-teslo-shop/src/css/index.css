@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 html,body{
-    @apply bg-slate-800 text-white;
+    @apply bg-slate-800 text-white p-0.5;
 }
 
 @theme inline {
@@ -124,4 +124,8 @@ html,body{
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@theme{
+  --font-montserrat: "Montserrat Alternates", sans-serif;
 }
