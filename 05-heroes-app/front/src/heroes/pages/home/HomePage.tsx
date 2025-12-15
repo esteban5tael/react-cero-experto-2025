@@ -10,8 +10,9 @@ import {
     Spinner,
 } from "@/components/";
 import { HeroGrid, HeroStats } from "@/heroes/components";
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, use } from "react";
 import { useHeroesStats, usePaginatedHeroes } from "@/heroes/hooks";
+import { FavoriteHeroContext } from "@/heroes/contexts";
 
 export function HomePage() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -20,6 +21,7 @@ export function HomePage() {
     const page = Number(searchParams.get("page") ?? "1");
     const limit = Number(searchParams.get("limit") ?? 6);
     const category = searchParams.get("category") ?? "hero";
+    const { favoritesCount ,favorites} = use(FavoriteHeroContext);
 
     const selectedTab = useMemo(() => {
         const validTabs = ["all", "favorites", "heroes", "villains"];
@@ -94,7 +96,7 @@ export function HomePage() {
                             }
                             className="flex items-center gap-2"
                         >
-                            Favorites (3)
+                            Favorites ({favoritesCount})
                         </TabsTrigger>
                         <TabsTrigger
                             value="heroes"
@@ -132,7 +134,7 @@ export function HomePage() {
                     </TabsContent>
                     <TabsContent value="favorites">
                         <h1> Favorites Heroes</h1>
-                        {/* <HeroGrid /> */}
+                        <HeroGrid heroes={favorites} />
                     </TabsContent>
                     <TabsContent value="heroes">
                         <h1> All Heroes</h1>

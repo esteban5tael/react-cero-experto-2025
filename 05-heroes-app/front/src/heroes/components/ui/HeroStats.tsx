@@ -3,9 +3,16 @@ import { Heart, Users, Zap } from "lucide-react";
 import { Badge, Spinner } from "@/components/";
 import { HeroStatCard } from "./HeroStatCard";
 import { useHeroesStats } from "@/heroes/hooks/useHeroesStats";
+import { use } from "react";
+import { FavoriteHeroContext } from "@/heroes/contexts";
 
 export const HeroStats = () => {
-    const { isError, isLoading, data:heroesStats } = useHeroesStats();
+    const {
+        isError,
+        isLoading,
+        data: heroesStats,
+    } = useHeroesStats();
+    const { favoritesCount } = use(FavoriteHeroContext);
 
     if (isLoading) {
         return (
@@ -17,7 +24,7 @@ export const HeroStats = () => {
     if (isError) {
         return <h1>Error loading data</h1>;
     }
-
+    console.log({ favoritesCount });
     if (heroesStats)
         return (
             <>
@@ -56,10 +63,16 @@ export const HeroStats = () => {
                         }
                     >
                         <div className="text-2xl font-bold text-red-600">
-                            3
+                            {favoritesCount}
                         </div>
                         <p className="text-xs text-muted-foreground">
-                            18.8% of total
+                            {/* 18.8% of total */}
+                            {(
+                                (favoritesCount /
+                                    heroesStats.totalHeroes) *
+                                100
+                            ).toFixed(1)}
+                            % of total
                         </p>
                     </HeroStatCard>
 

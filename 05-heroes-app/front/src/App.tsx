@@ -7,21 +7,26 @@ import {
     QueryClient,
     QueryClientProvider,
 } from "@tanstack/react-query";
+
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 //
 import { appRoutes } from "./router";
+import { FavoriteHeroProvider } from "./heroes/contexts";
 //
 
 const queryClient = new QueryClient();
 
 export const App = () => {
-    return(
+    return (
+        // Provide the client to your App
+        <QueryClientProvider client={queryClient}>
+            <FavoriteHeroProvider>
+                <RouterProvider router={appRoutes} />
 
-    // Provide the client to your App
-    <QueryClientProvider client={queryClient}>
-        <RouterProvider router={appRoutes} />
-        <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>);
+                <ReactQueryDevtools initialIsOpen={false} />
+            </FavoriteHeroProvider>
+        </QueryClientProvider>
+    );
 };
 
 export default App;

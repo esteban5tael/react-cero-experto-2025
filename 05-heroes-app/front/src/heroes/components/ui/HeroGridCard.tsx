@@ -6,9 +6,11 @@ import {
     CardHeader,
     CardContent,
 } from "@/components";
+import { FavoriteHeroContext } from "@/heroes/contexts";
 import type { HeroInterface } from "@/heroes/interfaces";
 
 import { Heart, Eye, Zap, Brain, Gauge, Shield } from "lucide-react";
+import { use } from "react";
 import { useNavigate } from "react-router";
 
 interface HeroGridCardProps {
@@ -16,11 +18,16 @@ interface HeroGridCardProps {
 }
 
 export const HeroGridCard = ({ hero }: HeroGridCardProps) => {
+    //
+    const { isFavorite, toggleFavorite } = use(FavoriteHeroContext);
+
     const navigate = useNavigate();
 
     const handleClick = () => {
         navigate(`/hero/${hero.slug}`);
     };
+
+    
     return (
         <>
             <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-linear-to-br from-white to-gray-50">
@@ -69,8 +76,9 @@ export const HeroGridCard = ({ hero }: HeroGridCardProps) => {
                         size="sm"
                         variant="ghost"
                         className="absolute bottom-3 right-3 bg-white/90 hover:bg-white"
+                        onClick={() => toggleFavorite(hero)}
                     >
-                        <Heart className="h-4 w-4 -red-500 text-red-500" />
+                        <Heart className={`h-4 w-4 -red-500  ${isFavorite(hero)?'text-red-500 fill-red-500':'text-blue-500 fill-gray-500 '}` }/>
                     </Button>
 
                     {/* View details button */}

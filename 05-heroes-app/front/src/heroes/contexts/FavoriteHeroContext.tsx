@@ -1,5 +1,6 @@
 import {
     createContext,
+    useEffect,
     useState,
     type PropsWithChildren,
 } from "react";
@@ -19,10 +20,23 @@ interface IFavoriteHeroContext {
 export const FavoriteHeroContext =
     createContext<IFavoriteHeroContext>({} as IFavoriteHeroContext);
 
+const getFavoritesFromLocalStorage = (): HeroInterface[] => {
+    if (typeof window === "undefined") return [];
+    const favorites = localStorage.getItem("favoriteHeroes");
+    return favorites ? JSON.parse(favorites) : [];
+};
+
+const setFavoritesToLocalStorage = (favorites: HeroInterface[]) => {
+    if (typeof window === "undefined") return;
+    localStorage.setItem("favoriteHeroes", JSON.stringify(favorites));
+};
+
 export const FavoriteHeroProvider = ({
     children,
 }: PropsWithChildren) => {
-    const [favorites, setFavorites] = useState<HeroInterface[]>([]);
+    const [favorites, setFavorites] = useState<HeroInterface[]>(
+        getFavoritesFromLocalStorage()
+    );
 
     const toogleFavorite = (hero: HeroInterface) => {
         const heroExists = favorites.find(
@@ -33,22 +47,32 @@ export const FavoriteHeroProvider = ({
             const newFavorites = favorites.filter(
                 (fav) => fav.id !== hero.id
             );
+
             setFavorites(newFavorites);
+
             return;
         }
 
         setFavorites([...favorites, hero]);
     };
 
+    const isFavorite = (hero: HeroInterface) => {
+        return favorites.some((fav) => fav.id === hero.id);
+    };
+
+    useEffect(() => {
+        setFavoritesToLocalStorage(favorites);
+    }, [favorites]);
+
     return (
         <FavoriteHeroContext
             value={{
                 // State
-                favoritesCount: 0,
-                favorites: [],
+                favoritesCount: favorites.length,
+                favorites,
                 // Methods
                 toggleFavorite: toogleFavorite,
-                isFavorite: () => {},
+                isFavorite: isFavorite,
             }}
         >
             {children}
