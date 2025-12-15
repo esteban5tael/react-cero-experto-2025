@@ -5,6 +5,11 @@ import {
     Accordion,
     AccordionContent,
     AccordionItem,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components";
 
 import { Search, Plus, SortAsc, Grid, Filter } from "lucide-react";
@@ -20,13 +25,26 @@ export const SearchControls = () => {
     const activeAccordion =
         searchParams.get("active-accordion") ?? "";
 
-    const selectedStrength = Number(searchParams.get("strength") ?? "0");
+    const selectedTeam = searchParams.get("team") ?? "";
+    const selectedCategory = searchParams.get("category") ?? "";
+    const selectedUniverse = searchParams.get("universe") ?? "";
+    const selectedStatus = searchParams.get("status") ?? "";
+    const selectedStrength = Number(
+        searchParams.get("strength") ?? 0
+    );
 
     const setQueryParams = (name: string, value: string) => {
-        setSearchParams((prev) => {
-            prev.set(name, value);
-            return prev;
-        });
+        if (value === "clear") {
+            setSearchParams((prev) => {
+                prev.delete(name);
+                return prev;
+            });
+        } else {
+            setSearchParams((prev) => {
+                prev.set(name, value);
+                return prev;
+            });
+        }
     };
     const handleSearchKeyDown = (
         event: React.KeyboardEvent<HTMLInputElement>
@@ -121,7 +139,34 @@ export const SearchControls = () => {
                                     <h3 className="text-lg font-semibold">
                                         Advanced Filters
                                     </h3>
-                                    <Button variant="ghost">
+                                    <Button
+                                        variant="ghost"
+                                        onClick={() => {
+                                            setSearchParams(
+                                                (prev) => {
+                                                    prev.delete(
+                                                        "name"
+                                                    );
+                                                    prev.delete(
+                                                        "team"
+                                                    );
+                                                    prev.delete(
+                                                        "category"
+                                                    );
+                                                    prev.delete(
+                                                        "universe"
+                                                    );
+                                                    prev.delete(
+                                                        "status"
+                                                    );
+                                                    prev.delete(
+                                                        "strength"
+                                                    );
+                                                    return prev;
+                                                }
+                                            );
+                                        }}
+                                    >
                                         Clear All
                                     </Button>
                                 </div>
@@ -130,42 +175,146 @@ export const SearchControls = () => {
                                         <label className="text-sm font-medium">
                                             Team
                                         </label>
-                                        <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-                                            All teams
-                                        </div>
+                                        <Select
+                                            value={selectedTeam}
+                                            onValueChange={(value) =>
+                                                setQueryParams(
+                                                    "team",
+                                                    value
+                                                )
+                                            }
+                                        >
+                                            <SelectTrigger className="h-10 w-full">
+                                                <SelectValue placeholder="All teams" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="clear">
+                                                    All teams
+                                                </SelectItem>
+                                                <SelectItem value="Justice League">
+                                                    Justice League
+                                                </SelectItem>
+                                                <SelectItem value="Avengers">
+                                                    Avengers
+                                                </SelectItem>
+                                                <SelectItem value="X-Men">
+                                                    X-Men
+                                                </SelectItem>
+                                                <SelectItem value="Batfamily">
+                                                    Batfamily
+                                                </SelectItem>
+                                                <SelectItem value="Teen Titans">
+                                                    Teen Titans
+                                                </SelectItem>
+                                                <SelectItem value="Solo">
+                                                    Solo
+                                                </SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium">
                                             Category
                                         </label>
-                                        <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-                                            All categories
-                                        </div>
+                                        <Select
+                                            value={selectedCategory}
+                                            onValueChange={(value) =>
+                                                setQueryParams(
+                                                    "category",
+                                                    value
+                                                )
+                                            }
+                                        >
+                                            <SelectTrigger className="h-10 w-full">
+                                                <SelectValue placeholder="All categories" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="clear">
+                                                    All categories
+                                                </SelectItem>
+                                                <SelectItem value="Hero">
+                                                    Hero
+                                                </SelectItem>
+                                                <SelectItem value="Villain">
+                                                    Villain
+                                                </SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium">
                                             Universe
                                         </label>
-                                        <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-                                            All universes
-                                        </div>
+                                        <Select
+                                            value={selectedUniverse}
+                                            onValueChange={(value) =>
+                                                setQueryParams(
+                                                    "universe",
+                                                    value
+                                                )
+                                            }
+                                        >
+                                            <SelectTrigger className="h-10 w-full">
+                                                <SelectValue placeholder="All universes" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="clear">
+                                                    All universes
+                                                </SelectItem>
+                                                <SelectItem value="DC">
+                                                    DC
+                                                </SelectItem>
+                                                <SelectItem value="Marvel">
+                                                    Marvel
+                                                </SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium">
                                             Status
                                         </label>
-                                        <div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-                                            All statuses
-                                        </div>
+                                        <Select
+                                            value={selectedStatus}
+                                            onValueChange={(value) =>
+                                                setQueryParams(
+                                                    "status",
+                                                    value
+                                                )
+                                            }
+                                        >
+                                            <SelectTrigger className="h-10 w-full">
+                                                <SelectValue placeholder="All statuses" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="clear">
+                                                    All statuses
+                                                </SelectItem>
+                                                <SelectItem value="Active">
+                                                    Active
+                                                </SelectItem>
+                                                <SelectItem value="Deceased">
+                                                    Deceased
+                                                </SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                     </div>
                                 </div>
                                 <div className="mt-4">
                                     <label className="text-sm font-medium">
-                                        Minimum Strength: {selectedStrength}/10
+                                        Minimum Strength:{" "}
+                                        {selectedStrength}/10
                                     </label>
                                     <Slider
-                                        defaultValue={[selectedStrength]}
-                                        onValueChange={value=>setQueryParams('strength',value[0].toString())}
+                                        defaultValue={[
+                                            selectedStrength,
+                                        ]}
+                                        onValueChange={(value) =>
+                                            setQueryParams(
+                                                "strength",
+                                                value[0].toString()
+                                            )
+                                        }
                                         max={10}
                                         step={1}
                                     />
