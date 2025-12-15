@@ -1,1 +1,1 @@
-005 Contexto de favoritos - Parte 2
+006 Tailwind + ShadCN UI + Google Fonts
