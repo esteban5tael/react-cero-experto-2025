@@ -1,12 +1,16 @@
+import { CustomPagination } from "@/components";
+import { products } from "@/data";
+import { ProductsGrid } from "@/shop/components";
+import { CustomJumbotron } from "@/shop/layouts/components";
+
 export const HomePage = () => {
     return (
         <>
-            <h1>Hola Mundo!</h1>
-            <h1 className="font-montserrat">Hola Mundo!</h1>
-            <h1 className="font-montserrat font-thin">Hola Mundo!</h1>
-            <h1 className="font-montserrat font-normal">Hola Mundo!</h1>
-            <h1 className="font-montserrat font-bold">Hola Mundo!</h1>
-            
+            <CustomJumbotron title="Estilo Tesla" />
+
+            <ProductsGrid products={products} />
+
+            <CustomPagination totalPages={5} />
         </>
     );
 };

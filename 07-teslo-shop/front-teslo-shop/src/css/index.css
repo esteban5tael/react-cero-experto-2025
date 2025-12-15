@@ -3,9 +3,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
-html,body{
+/* html,body{
     @apply bg-slate-800 text-white p-0.5;
-}
+} */
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
