@@ -1,3 +1,4 @@
+export * from './ui/accordion';
 export * from './ui/badge';
 export * from './ui/breadcrumb';
 export * from './ui/button-group';
@@ -16,6 +17,7 @@ export * from './ui/navigation-menu';
 export * from './ui/progress';
 export * from './ui/select';
 export * from './ui/separator';
+export * from './ui/slider';
 export * from './ui/sonner';
 export * from './ui/spinner';
 export * from './ui/tabs';
