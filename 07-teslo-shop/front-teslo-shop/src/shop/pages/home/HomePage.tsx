@@ -6,11 +6,11 @@ import { CustomJumbotron } from "@/shop/layouts/components";
 export const HomePage = () => {
     return (
         <>
-            <CustomJumbotron title="Estilo Tesla" />
+            <CustomJumbotron title="Todos los Productos" />
 
             <ProductsGrid products={products} />
 
-            <CustomPagination totalPages={5} />
+            <CustomPagination totalPages={7} />
         </>
     );
 };

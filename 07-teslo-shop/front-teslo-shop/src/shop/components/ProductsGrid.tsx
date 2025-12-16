@@ -18,11 +18,19 @@ interface IProductsGridProps {
 type TViewMode = "grid" | "list";
 
 export const ProductsGrid = ({ products }: IProductsGridProps) => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] =
+        useSearchParams() || "grid";
 
-    const viewMode = searchParams.get("viewMode") as TViewMode;
+    const viewMode = searchParams.get("viewMode");
 
-    const [showFilters, setShowFilters] = useState<boolean>(true);
+    const handleViewModeChange = (mode: TViewMode) => {
+        searchParams.set("viewMode", mode);
+        setSearchParams(searchParams);
+    };
+
+    
+
+    const [showFilters, setShowFilters] = useState<boolean>(false);
     return (
         <>
             {/* Products Section */}
@@ -42,7 +50,7 @@ export const ProductsGrid = ({ products }: IProductsGridProps) => {
                             <Button
                                 variant="outline"
                                 size="sm"
-                                // onClick={() =>setShowFilters(!showFilters)}
+                                 onClick={() =>setShowFilters(!showFilters)}
                                 className="lg:hidden"
                             >
                                 <Filter className="h-4 w-4 mr-2" />
@@ -51,17 +59,29 @@ export const ProductsGrid = ({ products }: IProductsGridProps) => {
 
                             <div className="hidden md:flex border rounded-md">
                                 <Button
-                                    // variant={viewMode === "grid"? "default": "ghost"}
+                                    variant={
+                                        viewMode === "grid"
+                                            ? "default"
+                                            : "ghost"
+                                    }
                                     size="sm"
-                                    // onClick={() =>setViewMode("grid")}
+                                    onClick={() =>
+                                        handleViewModeChange("grid")
+                                    }
                                     className="rounded-r-none"
                                 >
                                     <Grid className="h-4 w-4" />
                                 </Button>
                                 <Button
-                                    // variant={viewMode === "list"? "default": "ghost"}
+                                    variant={
+                                        viewMode === "list"
+                                            ? "default"
+                                            : "ghost"
+                                    }
                                     size="sm"
-                                    // onClick={() =>setViewMode("list")}
+                                    onClick={() =>
+                                        handleViewModeChange("list")
+                                    }
                                     className="rounded-l-none"
                                 >
                                     <List className="h-4 w-4" />
@@ -100,7 +120,11 @@ export const ProductsGrid = ({ products }: IProductsGridProps) => {
                         {/* Products Grid */}
                         <div className="flex-1">
                             <div
-                            // className={viewMode === "grid"? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6": "space-y-4"}
+                                className={
+                                    viewMode === "grid"
+                                        ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                                        : "space-y-4"
+                                }
                             >
                                 {products.map((product) => (
                                     <ProductCard
